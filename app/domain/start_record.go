@@ -11,5 +11,15 @@ type StartRecord struct {
 }
 
 func NewStartRecord(recordID string, timestamp time.Time, callID string, source string, destination string) *StartRecord {
-	return &StartRecord{}
+	if (recordID == "" || timestamp == time.Time{} || callID == "" || source == "" || destination == "") {
+		return nil
+	}
+
+	return &StartRecord{
+		recordID:    recordID,
+		timestamp:   timestamp,
+		callID:      callID,
+		source:      source,
+		destination: destination,
+	}
 }
