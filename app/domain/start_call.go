@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type StartRecord struct {
+type StartCall struct {
 	recordID    string
 	timestamp   time.Time
 	callID      string
@@ -13,7 +13,7 @@ type StartRecord struct {
 	destination string
 }
 
-func NewStartRecord(recordID string, timestamp time.Time, callID string, source string, destination string) *StartRecord {
+func NewStartCall(recordID string, timestamp time.Time, callID string, source string, destination string) *StartCall {
 	if (recordID == "" || timestamp == time.Time{} || callID == "" || source == "" || destination == "") {
 		return nil
 	}
@@ -22,7 +22,7 @@ func NewStartRecord(recordID string, timestamp time.Time, callID string, source 
 		return nil
 	}
 
-	return &StartRecord{
+	return &StartCall{
 		recordID:    recordID,
 		timestamp:   timestamp,
 		callID:      callID,

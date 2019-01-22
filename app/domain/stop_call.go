@@ -4,18 +4,18 @@ import (
 	"time"
 )
 
-type StopRecord struct {
+type StopCall struct {
 	recordID  string
 	timestamp time.Time
 	callID    string
 }
 
-func NewStopRecord(recordID string, timestamp time.Time, callID string) *StopRecord {
+func NewStopCall(recordID string, timestamp time.Time, callID string) *StopCall {
 	if (recordID == "" || timestamp == time.Time{} || callID == "") {
 		return nil
 	}
 
-	return &StopRecord{
+	return &StopCall{
 		recordID:  recordID,
 		timestamp: timestamp,
 		callID:    callID,
