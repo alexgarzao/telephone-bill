@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"strconv"
+	"time"
+)
 
 type StartRecord struct {
 	recordID    string
@@ -15,6 +18,10 @@ func NewStartRecord(recordID string, timestamp time.Time, callID string, source 
 		return nil
 	}
 
+	if !isValidNumber(source) || !isValidNumber(destination) {
+		return nil
+	}
+
 	return &StartRecord{
 		recordID:    recordID,
 		timestamp:   timestamp,
@@ -22,4 +29,9 @@ func NewStartRecord(recordID string, timestamp time.Time, callID string, source 
 		source:      source,
 		destination: destination,
 	}
+}
+
+func isValidNumber(number string) bool {
+	_, err := strconv.ParseUint(number, 10, 64)
+	return (err == nil && (len(number) == 10 || len(number) == 11))
 }

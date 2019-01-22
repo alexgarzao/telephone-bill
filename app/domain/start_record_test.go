@@ -11,7 +11,10 @@ func TestValidStartRecord(t *testing.T) {
 	n := time.Now()
 
 	tables := []StartRecord{
-		{"R1", n, "C1", "S1", "D1"},
+		{"R1", n, "C1", "1212345678", "12123456789"},
+		{"R1123", n, "asasdasd", "1232345678", "12123456789"},
+		{"999", n, "23123132@#@!@@", "1212222678", "12123456789"},
+		{"aaAAA321312", n, "C1", "12123456222", "12123456789"},
 	}
 
 	for _, table := range tables {
@@ -29,11 +32,26 @@ func TestInvalidWhenSomeFieldIsEmpty(t *testing.T) {
 	n := time.Now()
 
 	tables := []StartRecord{
-		{"", n, "C1", "S1", "D1"},
-		{"R1", time.Time{}, "C1", "S1", "D1"},
-		{"R1", n, "", "S1", "D1"},
-		{"R1", n, "C1", "", "D1"},
-		{"R1", n, "C1", "S1", ""},
+		{"", n, "C1", "1212345678", "12123456789"},
+		{"R1", time.Time{}, "C1", "1212345678", "12123456789"},
+		{"R1", n, "", "1212345678", "12123456789"},
+		{"R1", n, "C1", "", "12123456789"},
+		{"R1", n, "C1", "1212345678", ""},
+	}
+
+	for _, table := range tables {
+		r := NewStartRecord(table.recordID, table.timestamp, table.callID, table.source, table.destination)
+		assert.Nil(t, r, "Must be a invalid object!")
+	}
+}
+
+func TestInvalidWhenSomeFieldIsInvalid(t *testing.T) {
+	n := time.Now()
+
+	tables := []StartRecord{
+		{"R1", n, "C1", "12145678", "12123456789"},
+		{"R1", n, "C1", "1212345678", "1212789"},
+		{"R1", n, "C1", "1212345678", "1212789123123"},
 	}
 
 	for _, table := range tables {
