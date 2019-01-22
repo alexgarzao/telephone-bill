@@ -28,7 +28,7 @@ func TestValidStartRecord(t *testing.T) {
 	}
 }
 
-func TestInvalidWhenSomeFieldIsEmpty(t *testing.T) {
+func TestInvalidStartRecordWhenSomeFieldIsEmpty(t *testing.T) {
 	n := time.Now()
 
 	tables := []StartRecord{
@@ -45,7 +45,7 @@ func TestInvalidWhenSomeFieldIsEmpty(t *testing.T) {
 	}
 }
 
-func TestInvalidWhenSomeFieldIsInvalid(t *testing.T) {
+func TestInvalidStartRecordWhenSomeFieldIsInvalid(t *testing.T) {
 	n := time.Now()
 
 	tables := []StartRecord{
