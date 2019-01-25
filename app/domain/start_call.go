@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+type StartCallRepository interface {
+	Store(startCall StartCall)
+	FindById(id int) StartCall
+}
+
 type StartCall struct {
 	recordID    string
 	timestamp   time.Time
