@@ -16,7 +16,6 @@ func (handler *Sqlite) Execute(statement string) {
 }
 
 func (handler *Sqlite) Query(statement string) Row {
-	//fmt.Println(statement)
 	rows, err := handler.Conn.Query(statement)
 	if err != nil {
 		fmt.Println(err)
