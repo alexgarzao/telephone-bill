@@ -1,4 +1,4 @@
-package interfaces
+package infrastructure
 
 type DbHandler interface {
 	Execute(statement string)
