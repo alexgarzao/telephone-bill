@@ -18,13 +18,13 @@ func TestValidStartCall(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r := NewStartCall(table.recordID, table.timestamp, table.callID, table.source, table.destination)
+		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.NotNil(t, r, "Must be a valid object!")
-		assert.Equal(t, r.recordID, table.recordID)
-		assert.Equal(t, r.timestamp, table.timestamp)
-		assert.Equal(t, r.callID, table.callID)
-		assert.Equal(t, r.source, table.source)
-		assert.Equal(t, r.destination, table.destination)
+		assert.Equal(t, r.RecordID, table.RecordID)
+		assert.Equal(t, r.Timestamp, table.Timestamp)
+		assert.Equal(t, r.CallID, table.CallID)
+		assert.Equal(t, r.Source, table.Source)
+		assert.Equal(t, r.Destination, table.Destination)
 	}
 }
 
@@ -40,7 +40,7 @@ func TestInvalidStartCallWhenSomeFieldIsEmpty(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r := NewStartCall(table.recordID, table.timestamp, table.callID, table.source, table.destination)
+		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.Nil(t, r, "Must be a invalid object!")
 	}
 }
@@ -55,7 +55,7 @@ func TestInvalidStartCallWhenSomeFieldIsInvalid(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r := NewStartCall(table.recordID, table.timestamp, table.callID, table.source, table.destination)
+		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.Nil(t, r, "Must be a invalid object!")
 	}
 }

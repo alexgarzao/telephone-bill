@@ -11,11 +11,11 @@ type StartCallRepository interface {
 }
 
 type StartCall struct {
-	recordID    string
-	timestamp   time.Time
-	callID      string
-	source      string
-	destination string
+	RecordID    string
+	Timestamp   time.Time
+	CallID      string
+	Source      string
+	Destination string
 }
 
 func NewStartCall(recordID string, timestamp time.Time, callID string, source string, destination string) *StartCall {
@@ -28,11 +28,11 @@ func NewStartCall(recordID string, timestamp time.Time, callID string, source st
 	}
 
 	return &StartCall{
-		recordID:    recordID,
-		timestamp:   timestamp,
-		callID:      callID,
-		source:      source,
-		destination: destination,
+		RecordID:    recordID,
+		Timestamp:   timestamp,
+		CallID:      callID,
+		Source:      source,
+		Destination: destination,
 	}
 }
 
