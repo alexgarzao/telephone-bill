@@ -18,11 +18,11 @@ func TestValidStopCall(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r, _ := NewStopCall(table.recordID, table.timestamp, table.callID)
+		r, _ := NewStopCall(table.RecordID, table.Timestamp, table.CallID)
 		assert.NotNil(t, r, "Must be a valid object!")
-		assert.Equal(t, r.recordID, table.recordID)
-		assert.Equal(t, r.timestamp, table.timestamp)
-		assert.Equal(t, r.callID, table.callID)
+		assert.Equal(t, r.RecordID, table.RecordID)
+		assert.Equal(t, r.Timestamp, table.Timestamp)
+		assert.Equal(t, r.CallID, table.CallID)
 	}
 }
 
@@ -36,7 +36,7 @@ func TestInvalidStopCallWhenSomeFieldIsEmpty(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r, err := NewStopCall(table.recordID, table.timestamp, table.callID)
+		r, err := NewStopCall(table.RecordID, table.Timestamp, table.CallID)
 		assert.Nil(t, r, "Must be a invalid object!")
 		assert.EqualError(t, err, "empty fields")
 	}

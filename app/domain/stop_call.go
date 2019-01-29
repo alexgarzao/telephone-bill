@@ -6,9 +6,9 @@ import (
 )
 
 type StopCall struct {
-	recordID  string
-	timestamp time.Time
-	callID    string
+	RecordID  string
+	Timestamp time.Time
+	CallID    string
 }
 
 func NewStopCall(recordID string, timestamp time.Time, callID string) (*StopCall, error) {
@@ -17,8 +17,8 @@ func NewStopCall(recordID string, timestamp time.Time, callID string) (*StopCall
 	}
 
 	return &StopCall{
-		recordID:  recordID,
-		timestamp: timestamp,
-		callID:    callID,
+		RecordID:  recordID,
+		Timestamp: timestamp,
+		CallID:    callID,
 	}, nil
 }
