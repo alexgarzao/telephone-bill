@@ -5,6 +5,11 @@ import (
 	"time"
 )
 
+type StopCallRepository interface {
+	Store(stopCall StopCall) error
+	FindById(id int) (*StopCall, error)
+}
+
 type StopCall struct {
 	RecordID  string
 	Timestamp time.Time

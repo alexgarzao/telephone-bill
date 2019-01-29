@@ -15,15 +15,26 @@ type StartCall struct {
 	Destination string
 }
 
+type StopCall struct {
+	RecordID  string
+	Timestamp time.Time
+	CallID    string
+}
+
 type RecordStartCallInteractor interface {
 	Add(recordID string, timestamp time.Time, callID string, source string, destination string) error
 }
 
-type RestAPIHandler struct {
-	RecordStartCallInteractor RecordStartCallInteractor
+type RecordStopCallInteractor interface {
+	Add(recordID string, timestamp time.Time, callID string) error
 }
 
-func (handler RestAPIHandler) Add(res http.ResponseWriter, req *http.Request) {
+type RestAPIHandler struct {
+	RecordStartCallInteractor RecordStartCallInteractor
+	RecordStopCallInteractor  RecordStopCallInteractor
+}
+
+func (handler RestAPIHandler) RecordStartCall(res http.ResponseWriter, req *http.Request) {
 	var startCall StartCall
 	if err := json.NewDecoder(req.Body).Decode(&startCall); err != nil {
 		respondWithError(res, http.StatusBadRequest, fmt.Sprintf("Invalid JSON: %s", err.Error()))
@@ -35,6 +46,20 @@ func (handler RestAPIHandler) Add(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	json.NewEncoder(res).Encode(startCall)
+}
+
+func (handler RestAPIHandler) RecordStopCall(res http.ResponseWriter, req *http.Request) {
+	var stopCall StopCall
+	if err := json.NewDecoder(req.Body).Decode(&stopCall); err != nil {
+		respondWithError(res, http.StatusBadRequest, fmt.Sprintf("Invalid JSON: %s", err.Error()))
+		return
+	}
+	err := handler.RecordStopCallInteractor.Add(stopCall.RecordID, stopCall.Timestamp, stopCall.CallID)
+	if err != nil {
+		respondWithError(res, http.StatusBadRequest, fmt.Sprintf("Invalid data: %s", err.Error()))
+		return
+	}
+	json.NewEncoder(res).Encode(stopCall)
 }
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
