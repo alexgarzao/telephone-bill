@@ -21,7 +21,7 @@ func NewDbStopCallRepo(conn *gorm.DB) (*DbStopCallRepo, error) {
 
 func (repo *DbStopCallRepo) Store(recordStopCall domain.StopCall) error {
 	if err := repo.DB.Create(&Record{
-		Type:     1,
+		Type:     2,
 		RecordID: recordStopCall.RecordID,
 		CallID:   recordStopCall.CallID,
 	}); err.Error != nil {
