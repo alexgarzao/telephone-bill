@@ -1,15 +1,7 @@
 package infrastructure
 
-type DbHandler interface {
-	Execute(statement string)
-	Query(statement string) Row
-}
-
-type Row interface {
-	Scan(dest ...interface{})
-	Next() bool
-}
+import "github.com/jinzhu/gorm"
 
 type DbRepo struct {
-	DbHandler DbHandler
+	*gorm.DB
 }
