@@ -14,11 +14,9 @@ type RecordStartCallInteractor struct {
 }
 
 func (interactor *RecordStartCallInteractor) Add(recordID string, timestamp time.Time, callID string, source string, destination string) error {
-	r := domain.NewStartCall(recordID, timestamp, callID, source, destination)
-	if r == nil {
-		err := fmt.Errorf("Impossible to add Start Call: recordID %s timestamp %s callID %s source %s destination %s",
-			recordID, timestamp, callID, source, destination,
-		)
+	r, err := domain.NewStartCall(recordID, timestamp, callID, source, destination)
+	if err != nil {
+		err := fmt.Errorf("Impossible to add Start Call: %s", err.Error())
 		interactor.Logger.Log(err.Error())
 		return err
 	}

@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -18,13 +19,17 @@ type StartCall struct {
 	Destination string
 }
 
-func NewStartCall(recordID string, timestamp time.Time, callID string, source string, destination string) *StartCall {
+func NewStartCall(recordID string, timestamp time.Time, callID string, source string, destination string) (*StartCall, error) {
 	if (recordID == "" || timestamp == time.Time{} || callID == "" || source == "" || destination == "") {
-		return nil
+		return nil, fmt.Errorf("empty fields")
 	}
 
-	if !isValidNumber(source) || !isValidNumber(destination) {
-		return nil
+	if !isValidNumber(source) {
+		return nil, fmt.Errorf("invalid source number: %s", source)
+	}
+
+	if !isValidNumber(destination) {
+		return nil, fmt.Errorf("invalid destination number: %s", destination)
 	}
 
 	return &StartCall{
@@ -33,7 +38,7 @@ func NewStartCall(recordID string, timestamp time.Time, callID string, source st
 		CallID:      callID,
 		Source:      source,
 		Destination: destination,
-	}
+	}, nil
 }
 
 func isValidNumber(number string) bool {

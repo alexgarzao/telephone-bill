@@ -18,7 +18,7 @@ func TestValidStartCall(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
+		r, _ := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.NotNil(t, r, "Must be a valid object!")
 		assert.Equal(t, r.RecordID, table.RecordID)
 		assert.Equal(t, r.Timestamp, table.Timestamp)
@@ -40,8 +40,9 @@ func TestInvalidStartCallWhenSomeFieldIsEmpty(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
+		r, err := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.Nil(t, r, "Must be a invalid object!")
+		assert.EqualError(t, err, "empty fields")
 	}
 }
 
@@ -54,8 +55,17 @@ func TestInvalidStartCallWhenSomeFieldIsInvalid(t *testing.T) {
 		{"R1", n, "C1", "1212345678", "1212789123123"},
 	}
 
+	errors := []string{
+		"invalid source number: 12145678",
+		"invalid destination number: 1212789",
+		"invalid destination number: 1212789123123",
+	}
+	errorIdx := 0
+
 	for _, table := range tables {
-		r := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
+		r, err := NewStartCall(table.RecordID, table.Timestamp, table.CallID, table.Source, table.Destination)
 		assert.Nil(t, r, "Must be a invalid object!")
+		assert.EqualError(t, err, errors[errorIdx])
+		errorIdx++
 	}
 }
