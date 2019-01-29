@@ -6,8 +6,8 @@ import (
 )
 
 type StartCallRepository interface {
-	Store(startCall StartCall)
-	FindById(id int) StartCall
+	Store(startCall StartCall) error
+	FindById(id int) (*StartCall, error)
 }
 
 type StartCall struct {
