@@ -1,7 +1,6 @@
 package interfaces
 
 import (
-	_ "fmt"
 	"testing"
 	"time"
 
