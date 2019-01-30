@@ -20,30 +20,20 @@ func main() {
 		log.Fatalf("Error when trying to connect to database: %s\n", err.Error())
 	}
 
-	recordStartCallInteractor := new(usecases.RecordStartCallInteractor)
-	recordStartCallInteractor.Logger = new(infrastructure.Logger)
-	recordStartCallInteractor.StartCallRepository, err = interfaces.NewDbStartCallRepo(dbHandler)
+	recordCallInteractor := new(usecases.RecordCallInteractor)
+	recordCallInteractor.Logger = new(infrastructure.Logger)
+	recordCallInteractor.StartCallRepository, err = interfaces.NewDbStartCallRepo(dbHandler)
+	recordCallInteractor.StopCallRepository, err = interfaces.NewDbStopCallRepo(dbHandler)
 	if err != nil {
 		log.Fatalf("Error when trying to create DbStartCallRepo: %s\n", err.Error())
 	}
 
-	recordStopCallInteractor := new(usecases.RecordStopCallInteractor)
-	recordStopCallInteractor.Logger = new(infrastructure.Logger)
-	recordStopCallInteractor.StopCallRepository, err = interfaces.NewDbStopCallRepo(dbHandler)
-	if err != nil {
-		log.Fatalf("Error when trying to create DbStopCallRepo: %s\n", err.Error())
-	}
-
 	restAPIHandler := interfaces.RestAPIHandler{}
-	restAPIHandler.RecordStartCallInteractor = recordStartCallInteractor
-	restAPIHandler.RecordStopCallInteractor = recordStopCallInteractor
+	restAPIHandler.RecordCallInteractor = recordCallInteractor
 
 	router := mux.NewRouter()
-	router.HandleFunc("/api/v1/billing/startcalls", func(res http.ResponseWriter, req *http.Request) {
-		restAPIHandler.RecordStartCall(res, req)
-	}).Methods("POST")
-	router.HandleFunc("/api/v1/billing/stopcalls", func(res http.ResponseWriter, req *http.Request) {
-		restAPIHandler.RecordStopCall(res, req)
+	router.HandleFunc("/api/v1/billing/recordcalls", func(res http.ResponseWriter, req *http.Request) {
+		restAPIHandler.RecordCall(res, req)
 	}).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
