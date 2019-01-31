@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type DbStopCallRepo infrastructure.DbRepo
+type DbStopCallRepo infrastructure.DbHandler
 
 func NewDbStopCallRepo(conn *gorm.DB) (*DbStopCallRepo, error) {
 	if conn := conn.AutoMigrate(&Record{}); conn.Error != nil {

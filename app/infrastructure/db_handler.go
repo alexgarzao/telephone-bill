@@ -2,6 +2,6 @@ package infrastructure
 
 import "github.com/jinzhu/gorm"
 
-type DbRepo struct {
+type DbHandler struct {
 	*gorm.DB
 }
